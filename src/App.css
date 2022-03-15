@@ -17,11 +17,17 @@
   background-color: #282c34;
   min-height: 6vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 7rem;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-header a {
+  color: white;
+  text-decoration: none;
 }
 
 .App-link {
@@ -40,3 +46,5 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+
