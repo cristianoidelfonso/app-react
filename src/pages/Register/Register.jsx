@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from 'axios';
 import styled from "styled-components";
 
 import Button from "../../components/Button";
@@ -54,28 +53,28 @@ const ForgotPassword = styled.h4`
 
 export default function Login() {
 
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');  
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const userData = {
-      email: email,
-      password: password
-    };
-
-    axios.post(`http://localhost:3000/login`, userData)
-      .then((data) => console.log(data.data))
-      .catch((error) => console.log(error));
-  }
+    
+  };
 
 
   return (
     <Form onSubmit={handleSubmit}>
-        <Title>Login</Title>
+        <Title>Criar conta</Title>
       
         <InputContainer>
+          <Input 
+            type="text"
+            name="name"
+            value={name}
+            placeholder="Name"  
+            onChange={(e)=>setName(e.target.value)} 
+          />
           <Input 
             type="email"
             name="email"
@@ -94,7 +93,7 @@ export default function Login() {
         </InputContainer>
 
         <ButtonContainer>
-          <Button content="Entrar" />
+          <Button content="Registrar" />
         </ButtonContainer>
         
         <ForgotPassword>Esqueceu a senha ?</ForgotPassword>

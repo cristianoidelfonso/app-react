@@ -1,18 +1,22 @@
-import logo from './logo.svg'
-import './App.css'
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import Global from "./styles/global";
+import Header from './components/Header';
+import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 
 function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a href="/">MyPharma</a>
-      </header>
+      <Header />
       <Global />
-      <Login bgColor='#ccc'/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   )
 }

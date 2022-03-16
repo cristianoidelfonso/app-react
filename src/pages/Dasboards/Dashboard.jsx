@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Box, BoxTitle, BoxText } from "./HomeStyles";
+import { Container, Box, BoxTitle, BoxText } from "../Home/HomeStyles";
 
 
 export default function Home() {
