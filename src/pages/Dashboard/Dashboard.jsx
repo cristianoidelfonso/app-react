@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Container, Box, BoxTitle, BoxText } from "../Home/HomeStyles";
 
@@ -10,25 +11,25 @@ export default function Home() {
   const data = [
     {
       id: Math.random(),
-      title: "Box Titulo 1",
+      title: "Products",
       text: lorem,
       bgColor: "#D5CAFA"
     },
     {
       id: Math.random(),
-      title: "Box Titulo 2",
+      title: "Categories",
       text: lorem,
       bgColor: "#EDA9A9"
     },
     {
       id: Math.random(),
-      title: "Box Titulo 3",
+      title: "Brands",
       text: lorem,
       bgColor: "#F2EE8D"
     },
     {
       id: Math.random(),
-      title: "Box Titulo 4",
+      title: "Users",
       text: lorem,
       bgColor: "#9FEACD"
     }
@@ -36,13 +37,16 @@ export default function Home() {
 
 
   return (
-    <Container>
-      {data.map(box => (
-        <Box key={box.id} bgColor={box.bgColor}>
-          <BoxTitle>{box.title}</BoxTitle>
-          <BoxText>{box.text}</BoxText>
-        </Box>
-      ))}
-    </Container>
+    <>
+      <BoxTitle>Dashboard</BoxTitle>
+      <Container>
+        {data.map(box => (
+          <Box key={box.id} bgColor={box.bgColor}>
+            <BoxTitle><Link to={box.title.toLowerCase()}>{box.title}</Link></BoxTitle>
+            <BoxText>{box.text}</BoxText>
+          </Box>
+        ))}
+      </Container>
+    </>
   );
 }

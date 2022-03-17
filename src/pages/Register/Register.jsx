@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -21,10 +22,6 @@ const Title = styled.h3`
   color: #333;
   font-size: 2rem;
   text-align: center;
-
-  @media (min-width: 1024px) {
-    font-size: 1.5rem;
-  }
 `;
 
 const InputContainer = styled.div`
@@ -45,13 +42,14 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-const ForgotPassword = styled.h4`
-  cursor: pointer;
-  font-size: .9rem;
-  font-weight: 400;
-`;
+const linkToLogin = {
+  cursor: 'pointer',
+  textDecoration: 'none',
+  fontSize: '.9rem',
+  fontWeight: '400'
+}
 
-export default function Login() {
+export default function Register() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -65,38 +63,38 @@ export default function Login() {
 
   return (
     <Form onSubmit={handleSubmit}>
-        <Title>Criar conta</Title>
+      <Title>Criar conta</Title>
       
-        <InputContainer>
-          <Input 
-            type="text"
-            name="name"
-            value={name}
-            placeholder="Name"  
-            onChange={(e)=>setName(e.target.value)} 
-          />
-          <Input 
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Email"  
-            onChange={(e)=>setEmail(e.target.value)} 
-          />
-          
-          <Input 
-            type="password" 
-            name="password"
-            value={password}
-            placeholder="Password" 
-            onChange={(e)=>setPassword(e.target.value)}
-          />
-        </InputContainer>
-
-        <ButtonContainer>
-          <Button content="Registrar" />
-        </ButtonContainer>
+      <InputContainer>
+        <Input 
+          type="text"
+          name="name"
+          value={name}
+          placeholder="Name"  
+          onChange={(e)=>setName(e.target.value)} 
+        />
+        <Input 
+          type="email"
+          name="email"
+          value={email}
+          placeholder="Email"  
+          onChange={(e)=>setEmail(e.target.value)} 
+        />
         
-        <ForgotPassword>Esqueceu a senha ?</ForgotPassword>
+        <Input 
+          type="password" 
+          name="password"
+          value={password}
+          placeholder="Password" 
+          onChange={(e)=>setPassword(e.target.value)}
+        />
+      </InputContainer>
+
+      <ButtonContainer>
+        <Button content="Registrar" />
+      </ButtonContainer>
+      
+      <Link to="/login" style={linkToLogin}>Fazer login</Link>
       
     </Form>
   );

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import styled from "styled-components";
+import { useNavigate, Link } from "react-router-dom";
 
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -22,10 +23,6 @@ const Title = styled.h3`
   color: #333;
   font-size: 2rem;
   text-align: center;
-
-  @media (min-width: 1024px) {
-    font-size: 1.5rem;
-  }
 `;
 
 const InputContainer = styled.div`
@@ -46,16 +43,22 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-const ForgotPassword = styled.h4`
-  cursor: pointer;
-  font-size: .9rem;
-  font-weight: 400;
-`;
+const linkToForgotPassword = {
+  cursor: 'pointer',
+  textDecoration: 'none',
+  fontSize: '.9rem',
+  fontWeight: '400'
+}
 
 export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.getItem('token') ? navigate('/dashboard') : '';
+  },[]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,8 +69,20 @@ export default function Login() {
     };
 
     axios.post(`http://localhost:3000/login`, userData)
-      .then((data) => console.log(data.data))
-      .catch((error) => console.log(error));
+      .then((data) => {
+        if (data.data.accessToken) {
+          const token = `Bearer ${data.data.accessToken}`;
+          
+          if(!localStorage.getItem('token')){
+            localStorage.setItem('token', JSON.stringify(token));
+          }
+          
+          navigate('/dashboard');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
 
@@ -97,7 +112,7 @@ export default function Login() {
           <Button content="Entrar" />
         </ButtonContainer>
         
-        <ForgotPassword>Esqueceu a senha ?</ForgotPassword>
+      <Link to="/forgot-password" style={linkToForgotPassword}>Esqueceu a senha ? </Link>
       
     </Form>
   );

@@ -1,7 +1,8 @@
 import React from 'react';
-import { keyframes } from 'styled-components';
 import logo from '../logo.svg';
 import styled from "styled-components";
+import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
 const HeaderBox = styled.header`
   background-color: #282c34;
@@ -20,45 +21,19 @@ const ImgLogo = styled.img`
   pointer-events: none;
 `;
 
-const NavBrand = styled.a`
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-`;
-
-const Nav = styled.nav``;
-
-const Ul = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  list-style: none;
-`;
-
-const Li = styled.li``;
-
-const Link = styled.a`
-  color: #fff;
-  text-decoration: none;
-  font-size: .9rem;
-  padding: 0 .5rem;
-  margin: 0 .5rem;
-`;
-
+const navBrand = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: 'white',
+  textDecoration: 'none'
+}
 
 export default function Header() {
   return (
     <HeaderBox>
-      
-      <NavBrand href="/"><ImgLogo src={logo} alt="logo" />MyPharma</NavBrand>
-      <nav>
-        <Ul>
-          <li><Link href="/login">Login</Link></li>
-          <li><Link href="/register">Register</Link></li>
-        </Ul>
-      </nav>
+      <Link to="/" style={navBrand}><ImgLogo src={logo} alt="logo" />MyPharma</Link>
+      <Navbar />
     </HeaderBox>
   )
 }
