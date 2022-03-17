@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import styled from "styled-components";
 
@@ -56,6 +57,15 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');  
+  const [loggedIn, setLoggedIn] = useState(false);  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(loggedIn){
+     return navigate('/dashboard');
+    } 
+ },[loggedIn]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,11 +75,20 @@ export default function Login() {
       password: password
     };
 
+    setLoggedIn(false);
     axios.post(`http://localhost:3000/login`, userData)
-      .then((data) => console.log(data.data))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        if(response.data.accessToken){
+          const token = response.data.accessToken;
+          localStorage.setItem('token', token); 
+          setLoggedIn(true);
+        }
+      })
+      .catch((error) => {
+        setLoggedIn(false);
+        console.log(error)
+      });
   }
-
 
   return (
     <Form onSubmit={handleSubmit}>
