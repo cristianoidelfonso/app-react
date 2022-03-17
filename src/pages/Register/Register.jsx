@@ -54,10 +54,43 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const [errors, setErrors] = useState({
+    erroName: '',
+    erroEmail: '',
+    erroPassword: ''
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
+    const userData = {
+      name: name,
+      email: email,
+      password: password
+    };
+
+    axios.post(`http://localhost:3000/users`, userData)
+      .then((response) => {
+
+        if(response.data.name === 'ValidationError'){
+          console.log('Error: ', response.data.message);
+        }else if(response.data.code === 11000){
+          console.log('Error: Email já cadastrado');
+        }else{
+          console.log(response.data);
+        }
+
+
+        if(response.data.error){
+          console.log(response.data.errors.message);
+        }
+
+      })
+      .catch((error) => {
+        console.log(error.errors);
+      })
+
   };
 
 

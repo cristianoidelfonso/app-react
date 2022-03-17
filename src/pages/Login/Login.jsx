@@ -68,6 +68,7 @@ export default function Login() {
       password: password
     };
 
+    setLoggedIn(false);
     axios.post(`http://localhost:3000/login`, userData)
       .then((data) => {
         if (data.data.accessToken) {
@@ -84,7 +85,6 @@ export default function Login() {
         console.log(error);
       });
   }
-
 
   return (
     <Form onSubmit={handleSubmit}>
